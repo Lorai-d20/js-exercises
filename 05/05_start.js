@@ -24,7 +24,3 @@ const inventors = [
 
   // Log out the array with inventors
   
-  const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600));
-  const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
-  console.log(fullNames)
-  

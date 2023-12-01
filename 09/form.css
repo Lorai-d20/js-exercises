@@ -1,0 +1,8 @@
+.input-wrap {
+margin-bottom: 12px;  
+}
+
+.input-wrap > * {
+display: block;
+}
+  
