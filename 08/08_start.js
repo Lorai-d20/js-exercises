@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
+  // Goal: When the user enters a todo item it should be added to todo-list
+
   // 1. Select the form from the HTML and store it in a variable
   
   const handleForm = event => {

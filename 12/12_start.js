@@ -5,9 +5,33 @@ document.addEventListener("DOMContentLoaded", function() {
     { isDone: false, text: 'Cook dinner' },
   ];
 
-  // oefening om lijst op te delen in dones en todos en deze te tonen in juiste lijst
-  // const doneList = todoList.filter(todo => todo.isDone);
-  // const todoList = todoList.filter(todo => !todo.isDone);
-  // submit voegt item to aan todoList
-  // is niet reactive dus hoe zorg je ervoor dat wanneer todoList update de lijst ook update?
+  // Goal: add the default todoList given in the array above to the todo-list and done-list
+
+  // 1. Create a function that adds the todoList to the todo-list when isDone is false 
+  // and to the done-list when isDone is true
+
+  const form = document.forms.demo;
+
+  const handleForm = event => {
+    event.preventDefault();
+
+    const todo = form.elements.todo.value;
+    if (!todo) return;
+
+    addTodoToList(todo);
+
+    form.reset();
+  };
+
+  const addTodoToList = todo => {
+    const todoList = document.querySelector('#todo-list');
+
+    const newListItem = document.createElement('li');
+    newListItem.append(todo);
+
+    todoList.appendChild(newListItem);
+  };
+
+  form.addEventListener('submit', handleForm);
+  // 2. Call the function
 });

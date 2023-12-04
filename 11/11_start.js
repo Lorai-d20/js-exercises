@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+  // Goal: finish the functions to add todo items to the todo-list and move them to the done-list
   const form = document.forms.demo;
   
   const handleForm = event => {
@@ -15,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const moveToDoneList = event => {
     // 2. Can you create this function?
     // The todo item should be moved from the todo-list to the done-list
+    // Write pseudo code first
     // Bonus: remove the button from the todo item
   };
 

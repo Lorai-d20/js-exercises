@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const todoList = [
+  // Goal: Make sure the todoList items are persistent in localStorage
+  // When a todo is added, it should be added to localStorage as well so all items are still present when the page is refreshed
+
+  // See how the todoList array is updated to now read from localStorage when available otherwise use the default array
+  const todoList = JSON.parse(localStorage.getItem('todoList')) || [
     { isDone: true, text: 'Do a dance' },
     { isDone: false, text: 'Learn JS' },
     { isDone: false, text: 'Cook dinner' },
   ];
 
-  // Goal: add the default todoList given in the array above to the todo-list and done-list
-
-  // 1. Create a function that adds the todoList to the todo-list when isDone is false 
-  // and to the done-list when isDone is true
   const poluteTodoList = () => {
     const todoListEl = document.querySelector('#todo-list');
     const doneListEl = document.querySelector('#done-list');
@@ -35,15 +35,14 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   const addTodoToList = todo => {
-    const todoList = document.querySelector('#todo-list');
+    const todoListEl = document.querySelector('#todo-list');
 
     const newListItem = document.createElement('li');
     newListItem.append(todo);
 
-    todoList.appendChild(newListItem);
+    todoListEl.appendChild(newListItem);
   };
 
   form.addEventListener('submit', handleForm);
-  // 2. Call the function
   poluteTodoList();
 });

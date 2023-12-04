@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+  // Goal: finish the functions to add todo items to the todo-list and move them to the done-list
   const form = document.forms.demo;
   
   const handleForm = event => {

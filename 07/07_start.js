@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // If the user clicks the done-button I want the item to move to the done-list
+    // Goal: if the user clicks the done-button I want the item to move to the done-list
   
     // 1. Select the done-buttons and store them in a variable
   

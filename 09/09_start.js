@@ -1,4 +1,4 @@
-// When we click the submit button without typing anything in the input field, an empty list item is added.
+// Goal: When we click the submit button without typing anything in the input field, an empty list item is added.
 // We don't want that. Can you make sure that only non-empty items are added to the list?
 // Please share your solution before coding
 
