@@ -2,26 +2,24 @@
 // We don't want that. Can you make sure that only non-empty items are added to the list?
 // Please share your solution before coding
 
-document.addEventListener("DOMContentLoaded", function() {
-  const form = document.forms.demo;
-  
-  const handleForm = event => {
-    event.preventDefault();
+const form = document.forms.demo;
 
-    const todo = form.elements.todo.value;
-    addTodoToList(todo);
-  
-    form.reset();
-  };
+const handleForm = event => {
+  event.preventDefault();
 
-  const addTodoToList = todo => {
-    const todoList = document.querySelector('#todo-list');
+  const todo = form.elements.todo.value;
+  addTodoToList(todo);
 
-    const newListItem = document.createElement('li');
-    newListItem.append(todo);
+  form.reset();
+};
 
-    todoList.appendChild(newListItem);
-  };
+const addTodoToList = todo => {
+  const todoList = document.querySelector('#todo-list');
 
-  form.addEventListener('submit', handleForm);
-});
+  const newListItem = document.createElement('li');
+  newListItem.append(todo);
+
+  todoList.appendChild(newListItem);
+};
+
+form.addEventListener('submit', handleForm);
