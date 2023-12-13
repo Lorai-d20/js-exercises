@@ -6,8 +6,8 @@ const todoList = [
 
 // Goal: add the default todoList given in the array above to the todo-list and done-list
 
-// 1. Create a function that adds the todoList to the todo-list when isDone is false 
-// and to the done-list when isDone is true
+// 1. Create a function that adds the items in the todoList variable to the #todo-list element in the DOM when isDone is false 
+// isDone is true the item should be added to the #done-list element in the DOM
 
 const form = document.forms.demo;
 

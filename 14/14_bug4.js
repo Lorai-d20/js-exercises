@@ -1,3 +1,5 @@
+// BUG: Something is broken
+
 const todoList = JSON.parse(localStorage.getItem('todoList')) || [];
 
 async function fetchTodos() {
@@ -25,7 +27,6 @@ async function fetchTodos() {
  }
 
 const poluteTodoList = () => {
-  console.log('polute', todoList);
   todoList.forEach(todo => {
     const listItem = createToDoListItem(todo);
 
@@ -68,7 +69,7 @@ const createToDoListItem = todo => {
   listInput.value = todo.title;
   listItem.append(listInput);
 
-  const crudButton = ['Save', 'Toggle', 'Delete'].map(button => {
+  const crudButton = ['Save', 'Toggle', 'Delete'].forEach(button => {
     const buttonEl = document.createElement('button');
     buttonEl.append(button);
     buttonEl.classList.add(button.toLowerCase());

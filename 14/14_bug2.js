@@ -1,7 +1,13 @@
-// const todoList = [];
+// BUG: When the page is refreshed the items from the endpoint are added to the list again.
+
 const todoList = JSON.parse(localStorage.getItem('todoList')) || [];
 
 async function fetchTodos() {
+  const loader = document.querySelector('.loader');
+  const content = document.querySelector('.container');
+
+  loader.classList.remove('hidden');
+  content.classList.add('hidden');
   try {
      const response = await fetch("https://jsonplaceholder.typicode.com/todos");
      
@@ -14,17 +20,18 @@ async function fetchTodos() {
      localStorage.setItem('todoList', JSON.stringify(todoList));
   } catch (error) {
      console.error('Error fetching todos:', error);
+  } finally {
+    loader.classList.add('hidden');
+    content.classList.remove('hidden');
   }
  }
 
 const poluteTodoList = () => {
-  const todoListEl = document.querySelector('#todo-list');
-  const doneListEl = document.querySelector('#done-list');
-
   todoList.forEach(todo => {
     const listItem = createToDoListItem(todo);
 
-    todo.completed ? doneListEl.appendChild(listItem) : todoListEl.appendChild(listItem);
+    const targetList = todo.completed ? document.querySelector('#done-list') : document.querySelector('#todo-list');
+    targetList.prepend(listItem);
   });
 };
 
@@ -50,51 +57,55 @@ const addTodoToList = todo => {
 
   todoListEl.prepend(listItem);
 
-  todoList.unshift(newTodo);
+  todoList.push(newTodo);
   localStorage.setItem('todoList', JSON.stringify(todoList));
 };
 
 const createToDoListItem = todo => {
-  const buttons = ['Save', 'Toggle', 'Delete'];
-
-  const crudButton = buttons.map(button => {
-    const buttonEl = document.createElement('button');
-    buttonEl.append(button);
-    buttonEl.classList.add('button');
-    buttonEl.addEventListener('click', () => handleButtonClick(button, buttonEl));
-    return buttonEl;
-  });
-
   const listItem = document.createElement('li');
   listItem.dataset.id = todo.id;
+
   const listInput = document.createElement('input');
   listInput.value = todo.title;
   listItem.append(listInput);
+
+  const crudButton = ['Save', 'Toggle', 'Delete'].map(button => {
+    const buttonEl = document.createElement('button');
+    buttonEl.append(button);
+    buttonEl.classList.add(button.toLowerCase());
+    buttonEl.dataset.button = button.toLocaleLowerCase();
+    buttonEl.addEventListener('click', () => handleButtonClick(button, listItem));
+    return buttonEl;
+  });
+  
+  listInput.addEventListener('input', () => listInput.nextSibling.classList.remove('save'));
   listItem.append(...crudButton);
 
   return listItem;
 };
 
-const handleButtonClick = (button, buttonEl) => {
+const handleButtonClick = (button, listEl) => {
   if (button === 'Save') {
-    handleEdit(buttonEl.parentElement);
+    handleEdit(listEl);
   }
   if (button === 'Delete') {
-    handleDelete(buttonEl.parentElement);
+    handleDelete(listEl);
   }
   if (button === 'Toggle') {
-    handleToggle(buttonEl.parentElement);
+    handleToggle(listEl);
   }
 };
 
 const handleEdit = listEl => {
   const todo = todoList.find(todo => todo.id === Number(listEl.dataset.id));
   todo.title = listEl.querySelector('input').value;
+  listEl.querySelector('button[data-button="save"]').classList.add('save');
   localStorage.setItem('todoList', JSON.stringify(todoList));
 }
 
 const handleDelete = listEl => {
   const todos = todoList.filter(todo => todo.id !== Number(listEl.dataset.id));
+  todoList.splice(todoList.findIndex(todo => todo.id === Number(listEl.dataset.id)), 1);
   localStorage.setItem('todoList', JSON.stringify(todos));
   listEl.remove();
 }
@@ -103,19 +114,15 @@ const handleToggle = listEl => {
   const todo = todoList.find(todo => todo.id === Number(listEl.dataset.id));
   todo.completed = !todo.completed;
   localStorage.setItem('todoList', JSON.stringify(todoList));
-
-  const doneListEl = document.querySelector('#done-list');
-  const todoListEl = document.querySelector('#todo-list');
-  todo.completed ? doneListEl.prepend(listEl) : todoListEl.prepend(listEl);
+  
+  const targetList = todo.completed ? document.querySelector('#done-list') : document.querySelector('#todo-list');
+  targetList.prepend(listEl);
 }
-
 
 form.addEventListener('submit', handleForm);
 
 const initializeApp = async () => {
-  if (todoList.length === 0) {
-    await fetchTodos();
-  }
+  await fetchTodos();
   poluteTodoList();
 };
 

@@ -1,3 +1,6 @@
+// BUG: The delete button only works when you delete one item at a time.
+// When you delete multiple items at once, the items are visible again after refresh.
+
 const todoList = JSON.parse(localStorage.getItem('todoList')) || [];
 
 async function fetchTodos() {
@@ -25,7 +28,6 @@ async function fetchTodos() {
  }
 
 const poluteTodoList = () => {
-  console.log('polute', todoList);
   todoList.forEach(todo => {
     const listItem = createToDoListItem(todo);
 
@@ -104,7 +106,6 @@ const handleEdit = listEl => {
 
 const handleDelete = listEl => {
   const todos = todoList.filter(todo => todo.id !== Number(listEl.dataset.id));
-  todoList.splice(todoList.findIndex(todo => todo.id === Number(listEl.dataset.id)), 1);
   localStorage.setItem('todoList', JSON.stringify(todos));
   listEl.remove();
 }

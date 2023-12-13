@@ -1,7 +1,8 @@
 // Goal: Make sure the todoList items are persistent in localStorage
 // When a todo is added, it should be added to localStorage as well so all items are still present when the page is refreshed
+// It is up to you to figure out where the logic should go
 
-// See how the todoList array is updated to now read from localStorage when available otherwise use the default array
+// Notice how the todoList array is updated to now read from localStorage when available otherwise use the default array
 const todoList = JSON.parse(localStorage.getItem('todoList')) || [
   { isDone: true, text: 'Do a dance' },
   { isDone: false, text: 'Learn JS' },

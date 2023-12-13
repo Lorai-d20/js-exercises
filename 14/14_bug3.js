@@ -1,3 +1,5 @@
+// BUG: all todos from the endpoint are undefined
+
 const todoList = JSON.parse(localStorage.getItem('todoList')) || [];
 
 async function fetchTodos() {
@@ -25,9 +27,8 @@ async function fetchTodos() {
  }
 
 const poluteTodoList = () => {
-  console.log('polute', todoList);
   todoList.forEach(todo => {
-    const listItem = createToDoListItem(todo);
+    const listItem = createToDoListItem(todo.title);
 
     const targetList = todo.completed ? document.querySelector('#done-list') : document.querySelector('#todo-list');
     targetList.prepend(listItem);
